@@ -133,7 +133,7 @@ addGroupCoverages <- function(
         if(is.null(sampleLabels)) {
           sampleLabels <- "Sample"
         }
-        sampleLabelsx <- paste0(subColDat[sampleLabels,])
+        sampleLabelsx <- paste0(subColDat[,sampleLabels])
       }else{
         sampleLabelsx <- NULL
       }
