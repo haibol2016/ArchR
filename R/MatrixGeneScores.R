@@ -234,6 +234,7 @@ addGeneScoreMatrix <- function(
     m <- 1 / width(geneRegions)
     geneRegions$geneWeight <- 1 + m * (geneScaleFactor - 1) / (max(m) - min(m))
   }
+  geneRegions <- GenomicRanges::trim(geneRegions)  # remove out-of-bound GR
 
   .logDiffTime(sprintf("Computing Gene Scores using distance relative to %s! ", distMethod), tstart, logFile = logFile)
 
@@ -241,7 +242,7 @@ addGeneScoreMatrix <- function(
   geneRegions <- sort(sortSeqlevels(geneRegions), ignore.strand = TRUE)
   .logThis(geneRegions, paste0(sampleName, " .addGeneScoreMat geneRegions"), logFile = logFile)
   
-  geneRegions <- split(geneRegions, seqnames(geneRegions))
+  geneRegions <- split(geneRegions, seqnames(geneRegions), drop = TRUE)
   geneRegions <- lapply(geneRegions, function(x){
     mcols(x)$idx <- seq_along(x)
     return(x)
@@ -250,7 +251,7 @@ addGeneScoreMatrix <- function(
   #Blacklist Split
   if(!is.null(blacklist)){
     if(length(blacklist) > 0){
-      blacklist <- split(blacklist, seqnames(blacklist))
+      blacklist <- split(blacklist, seqnames(blacklist), drop = TRUE)
     }
   }
 
@@ -368,7 +369,9 @@ addGeneScoreMatrix <- function(
 
       }else{
 
-        extendedGeneRegion <- ranges(suppressWarnings(extendGR(geneRegionz, upstream = max(extendUpstream), downstream = max(extendDownstream))))
+        extendedGeneRegion <- ranges(suppressWarnings(GenomicRanges::trim(extendGR(geneRegionz, 
+                                                                                   upstream = max(extendUpstream), 
+                                                                                   downstream = max(extendDownstream)))))
 
       }
 
@@ -393,7 +396,7 @@ addGeneScoreMatrix <- function(
       if(!is.null(blacklist)){
         if(length(blacklist) > 0){
           blacklistz <- blacklist[[chrz]]
-          if(is.null(blacklistz) | length(blacklistz) > 0){
+          if(!is.null(blacklistz) | length(blacklistz) > 0){
             tilesBlacklist <- 1 * (!overlapsAny(uniqueTiles, ranges(blacklistz)))
             if(sum(tilesBlacklist == 0) > 0){
               x <- x * tilesBlacklist[subjectHits(tmp)] #Multiply Such That All Blacklisted Tiles weight is now 0!
