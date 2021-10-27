@@ -854,6 +854,7 @@ createArrowFiles <- function(
   )
   tssFlank$type <- "flank"
   tssFeatures <- c(tssWindow, tssFlank)
+  tssFeatures <- GenomicRanges::trim(tssFeatures)
   #.logThis(tssFeatures, paste0(prefix, " tssFeatures"), logFile = logFile)
 
   #Counting
@@ -893,9 +894,10 @@ createArrowFiles <- function(
   ){
   
   tstart1 <- Sys.time()
-  featureList <- split(feature, seqnames(feature))
+  featureList <- split(feature, seqnames(feature), drop = TRUE)
   chrArrow <- .availableChr(ArrowFile)
   featureList <- featureList[chrArrow]
+  featureList <- featureList[!is.na(names(featureList))]  # empty GRanges with name "NA"
   if(length(featureList)==0){
     stop("Error No Overlap in Chromosomes and TSS Chromosomes!")
   }
@@ -1021,9 +1023,11 @@ createArrowFiles <- function(
 
   tstart1 <- Sys.time()
   featureNames <- unique(mcols(feature)$FeatureName)
-  featureList <- split(feature, seqnames(feature))
+  featureList <- split(feature, seqnames(feature), drop = TRUE)
   chrArrow <- .availableChr(ArrowFile)
   featureList <- featureList[chrArrow]
+  
+  featureList <- featureList[!is.na(names(featureList))]  # empty GRanges with name "NA"
   if(length(featureList)==0){
     .logStop("Error No Overlap in Chromosomes and Feature Chromosomes!", logFile = logFile)
   }
