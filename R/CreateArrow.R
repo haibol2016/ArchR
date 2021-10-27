@@ -568,11 +568,11 @@ createArrowFiles <- function(
   .logDiffTime(sprintf("%s Adding Additional Feature Counts!", prefix), t1 = tstart, verbose = verbose, logFile = logFile)
 
   featureList <- list()
-  featureList$Promoter <-  extendGR(
+  featureList$Promoter <- GenomicRanges::trim(extendGR(
       gr = resize(geneAnnotation$genes, 1, "start"), 
       upstream = promoterRegion[1], 
       downstream = promoterRegion[2]
-  )
+  ))
 
   if(!is.null(genomeAnnotation$blacklist)){
     if(length(genomeAnnotation$blacklist) > 0){
