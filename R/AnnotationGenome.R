@@ -15,7 +15,7 @@ createGenomeAnnotation <- function(
   chromSizes = NULL,
   blacklist = NULL,
   filter = TRUE,
-  filterChr = c("chrM")
+  filterChr = c("chrM")  ## it is preferable to remove chromosome without TSSs and "chrM"
   ){
 
   .validInput(input = genome, name = "genome", valid = c("character", "bsgenome"))
@@ -157,7 +157,7 @@ createGeneAnnotation <- function(
 
     ###########################
     message("Getting Exons..")
-    exons <- unlist(GenomicFeatures::exonsBy(TxDb, by = "tx"))
+    exons <- unlist(GenomicFeatures::exonsBy(TxDb, by = "tx", use.names = TRUE))
     exons$tx_id <- names(exons)
     mcols(exons)$gene_id <- suppressMessages(AnnotationDbi::select(TxDb, keys = paste0(mcols(exons)$tx_id), column = "GENEID", keytype = "TXID")[, "GENEID"])
     exons <- exons[!is.na(mcols(exons)$gene_id), ]
