@@ -181,7 +181,7 @@ getFragmentsFromArrow <- function(
     return(output)
   }
 
-  if(is.null(cellNames) | tolower(method) == "fast"){
+  if(is.null(cellNames) || tolower(method) == "fast"){
     
     output <- .h5read(ArrowFile, paste0("Fragments/",chr,"/Ranges"), method = method) %>% 
       {IRanges(start = .[,1], width = .[,2])}
@@ -681,7 +681,7 @@ getMatrixFromArrow <- function(
       }
      
 
-      if(y %% 20 == 0 | y %% length(ArrowFiles) == 0){
+      if(y %% 20 == 0 || y %% length(ArrowFiles) == 0){
         gc()
       } 
 
@@ -908,7 +908,7 @@ getMatrixFromArrow <- function(
 
     #https://rdrr.io/cran/fishmethods/src/R/combinevar.R
 
-    if(ncol(dfMeans) != ncol(dfVars) | ncol(dfMeans) != length(ns)){
+    if(ncol(dfMeans) != ncol(dfVars) || ncol(dfMeans) != length(ns)){
       stop("Means Variances and Ns lengths not identical")
     }
 
