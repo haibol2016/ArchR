@@ -281,7 +281,7 @@ createArrowFiles <- function(
 
   if(!is.null(validBarcodes)){
     if(length(inputFiles) == 1){
-      if(inherits(validBarcodes, "list") | inherits(validBarcodes, "SimpleList")){
+      if(inherits(validBarcodes, "list") || inherits(validBarcodes, "SimpleList")){
         if(length(validBarcodes) != length(inputFiles)){
           stop("validBarcodes must be same length as inputFiles!")
         }
@@ -330,7 +330,7 @@ createArrowFiles <- function(
   #############################################################  
   .logMessage(sprintf("%s Determining Arrow Method to use!", prefix), logFile = logFile)
   fe <- .fileExtension(inputFile)
-  if(fe == "gz" | fe == "bgz" | fe == "tsv" | fe == "txt"){   
+  if(fe == "gz" || fe == "bgz" || fe == "tsv" || fe == "txt"){   
     if(.isTabix(inputFile)){
       readMethod <- "tabix"
     }else{
@@ -1434,7 +1434,7 @@ createArrowFiles <- function(
   #######################################################################################################
   if(is.null(bamFlag)){
     bamFlag <- scanBamFlag(isMinusStrand = FALSE, isProperPair  = TRUE)
-  }else if(inherits(bamFlag, "list") | inherits(bamFlag, "SimpleList")){
+  }else if(inherits(bamFlag, "list") || inherits(bamFlag, "SimpleList")){
     bamFlag$isMinusStrand <- FALSE
     bamFlag$isProperPair <- TRUE
     bamFlag <- do.call(scanBamFlag, bamFlag)
