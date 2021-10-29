@@ -397,7 +397,7 @@ addGeneScoreMatrix <- function(
         if(length(blacklist) > 0){
            if (chrz %in% names(blacklist){
              blacklistz <- blacklist[[chrz]]
-             if(!is.null(blacklistz) | length(blacklistz) > 0){
+             if(!is.null(blacklistz) && length(blacklistz) > 0){
                tilesBlacklist <- 1 * (!overlapsAny(uniqueTiles, ranges(blacklistz)))
                if(sum(tilesBlacklist == 0) > 0){
                  x <- x * tilesBlacklist[subjectHits(tmp)] #Multiply Such That All Blacklisted Tiles weight is now 0!
