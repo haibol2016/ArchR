@@ -423,7 +423,7 @@ createLogFile <- function(
     suppressMessages(utils::capture.output(print(head(x)), file = logFile, append = TRUE))
     cat("\n", file = logFile, append = TRUE)
 
-  }else if(is(x, "dgCMatrix") | is(x, "dgeMatrix")){
+  }else if(is(x, "dgCMatrix") || is(x, "dgeMatrix")){
 
     cat(paste0(name, ": nRows = ", nrow(x), ", nCols = ", ncol(x), "\n"), file = logFile, append = TRUE)
     cat(paste0(name, ": NonZeroEntries = ", length(x@x), ", EntryRange = [ ", paste0(range(x@x), collapse=" , "), " ]\n"), file = logFile, append = TRUE)    
@@ -447,7 +447,7 @@ createLogFile <- function(
 
     suppressMessages(utils::capture.output(print(proj), file = logFile, append = TRUE))
 
-  }else if(is(x, "SimpleList") | is(x, "list")){
+  }else if(is(x, "SimpleList") || is(x, "list")){
 
     for(i in seq_along(x)){
 
@@ -481,7 +481,7 @@ createLogFile <- function(
         suppressMessages(utils::capture.output(print(px), file = logFile, append = TRUE))
         cat("\n", file = logFile, append = TRUE)
 
-      }else if(is(y, "SimpleList") | is(y, "list")){
+      }else if(is(y, "SimpleList") || is(y, "list")){
 
         for(j in seq_along(y)){
 
@@ -515,7 +515,7 @@ createLogFile <- function(
             suppressMessages(utils::capture.output(print(px), file = logFile, append = TRUE))
             cat("\n", file = logFile, append = TRUE)
 
-          }else if(is(y, "SimpleList") | is(y, "list")){
+          }else if(is(y, "SimpleList") || is(y, "list")){
 
             #Only print 2x nested lists
 
