@@ -100,7 +100,7 @@ addGeneScoreMatrix <- function(
     stop("Error Input Arrow Files do not all exist!")
   }
 
-  if(inherits(mcols(genes)$symbol, "list") | inherits(mcols(genes)$symbol, "SimpleList")){
+  if(inherits(mcols(genes)$symbol, "list") || inherits(mcols(genes)$symbol, "SimpleList")){
     stop("Found a list in genes symbol! This is an incorrect format. Please correct your genes!")
   }
 
@@ -195,7 +195,7 @@ addGeneScoreMatrix <- function(
   .validInput(input = force, name = "force", valid = c("boolean"))
   .validInput(input = tmpFile, name = "tmpFile", valid = c("character", "null"))
 
-  if(inherits(mcols(genes)$symbol, "list") | inherits(mcols(genes)$symbol, "SimpleList")){
+  if(inherits(mcols(genes)$symbol, "list") || inherits(mcols(genes)$symbol, "SimpleList")){
     stop("Found a list in genes symbol! This is an incorrect format. Please correct your genes!")
   }
 
@@ -532,7 +532,7 @@ addGeneScoreMatrix <- function(
       #Clean Memory
       rm(matGS)
 
-      if(z %% 3 == 0 | z == length(geneRegions)){
+      if(z %% 3 == 0 || z == length(geneRegions)){
         gc()
       }
 
