@@ -779,7 +779,7 @@ addGeneIntegrationMatrix <- function(
         #Clean Memory
         rm(matz)
 
-        if(z %% 3 == 0 | z == length(allChr)){
+        if(z %% 3 == 0 || z == length(allChr)){
           gc()
         }
 
