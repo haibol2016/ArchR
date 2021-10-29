@@ -12,7 +12,7 @@ getOutputDirectory <- function(
   ArchRProj = NULL
   ){
 
-  if(is.null(ArchRProj) | is.character(ArchRProj)){
+  if(is.null(ArchRProj) || is.character(ArchRProj)){
     return("QualityControl")
   }
 
@@ -380,7 +380,7 @@ addPeakSet <- function(
   .validInput(input = force, name = "force", valid = c("boolean"))
   genomeAnnotation <- .validGenomeAnnotation(genomeAnnotation)
   
-  if(is.null(ArchRProj@peakSet) | force){
+  if(is.null(ArchRProj@peakSet) || force){
    
     #Index The Peak Set
     peakSet <- lapply(split(peakSet, seqnames(peakSet)), function(x){
@@ -603,7 +603,7 @@ getGenes <- function(ArchRProj = NULL, symbols = NULL){
     genes <- genes[which(tolower(genes$symbol) %in% tolower(symbols))]
   }
 
-  if(inherits(mcols(genes)$symbol, "list") | inherits(mcols(genes)$symbol, "SimpleList")){
+  if(inherits(mcols(genes)$symbol, "list") || inherits(mcols(genes)$symbol, "SimpleList")){
     stop("Found a list in genes symbol! This is an incorrect format. Please correct your genes!")
   }
 
@@ -872,7 +872,7 @@ getFeatures <- function(ArchRProj = NULL, useMatrix = "GeneScoreMatrix", select 
   fdf <- .getFeatureDF(getArrowFiles(ArchRProj), useMatrix)
   matrixClass <- h5read(getArrowFiles(ArchRProj)[1], paste0(useMatrix, "/Info/Class"))
   if(is.null(select)){
-    if(any(duplicated(paste0(fdf$name))) | matrixClass == "Sparse.Assays.Matrix"){
+    if(any(duplicated(paste0(fdf$name))) || matrixClass == "Sparse.Assays.Matrix"){
       paste0(fdf$seqnames,":",fdf$name)
     }else{
       fdf$name
