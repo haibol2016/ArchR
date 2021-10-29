@@ -24,7 +24,7 @@ createGenomeAnnotation <- function(
   .validInput(input = filter, name = "filter", valid = c("boolean"))
   .validInput(input = filterChr, name = "filterChr", valid = c("character", "null"))
 
-  if(is.null(genome) | is.null(blacklist) | is.null(chromSizes)){
+  if(is.null(genome) || is.null(blacklist) || is.null(chromSizes)){
 
     ##################
     message("Getting genome..")
@@ -98,7 +98,7 @@ createGeneAnnotation <- function(
   .validInput(input = TSS, name = "TSS", valid = c("GRanges", "null"))
   .validInput(input = annoStyle, name = "annoStyle", valid = c("character", "null"))
 
-  if(is.null(genes) | is.null(exons) | is.null(TSS)){
+  if(is.null(genes) || is.null(exons) || is.null(TSS)){
 
     inGenes <- genes
     inExons <- exons
@@ -107,7 +107,7 @@ createGeneAnnotation <- function(
     .requirePackage("GenomicFeatures", source = "bioc")
 
     if(is.null(genome)) {
-      if (is.null(TxDb) | is.null(OrgDb)) {
+      if (is.null(TxDb) || is.null(OrgDb)) {
           stop("If no provided genome then you need TxDb and OrgDb!")
       }
     }
@@ -315,14 +315,14 @@ createGeneAnnotation <- function(
 
   .validInput(input = genome, name = "genome", valid = "character")
 
-  if(toupper(genome) == "HG19" | toupper(genome) == "HG38"){
+  if(toupper(genome) == "HG19" || toupper(genome) == "HG38"){
     if(suppressWarnings(!require(org.Hs.eg.db))){
       message("Package does not exist, now trying bioconductor..")
       BiocManager::install("org.Hs.eg.db", update=FALSE)
     }
     library(org.Hs.eg.db)
     annodb <- org.Hs.eg.db
-  }else if(toupper(genome) == "MM9" | toupper(genome) == "MM10"){
+  }else if(toupper(genome) == "MM9" || toupper(genome) == "MM10"){
     if(suppressWarnings(!require(org.Mm.eg.db))){
       message("Package does not exist, now trying bioconductor..")
       BiocManager::install("org.Mm.eg.db", update=FALSE)
@@ -333,7 +333,6 @@ createGeneAnnotation <- function(
     stop("Genome not recognized!")
   }
   return(annodb)
-
 }
 
 
