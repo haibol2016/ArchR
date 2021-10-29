@@ -897,8 +897,7 @@ createArrowFiles <- function(
   featureList <- split(feature, seqnames(feature), drop = TRUE)
   chrArrow <- .availableChr(ArrowFile)
   featureList <- featureList[chrArrow[chrArrow %in% names(featureList)]]
-
-  featureList <- featureList[!is.na(names(featureList))]  # empty GRanges with name "NA"
+  featureList <- featureList[!is.na(names(featureList))]  # remove empty GRanges with name "NA"
   if(length(featureList)==0){
     stop("Error No Overlap in Chromosomes and TSS Chromosomes!")
   }
@@ -1027,8 +1026,7 @@ createArrowFiles <- function(
   featureList <- split(feature, seqnames(feature), drop = TRUE)
   chrArrow <- .availableChr(ArrowFile)
   featureList <- featureList[chrArrow[chrArrow %in% names(featureList)]]
-  
-  featureList <- featureList[!is.na(names(featureList))]  # empty GRanges with name "NA"
+  featureList <- featureList[!is.na(names(featureList))]  # remove empty GRanges with name "NA"
   if(length(featureList)==0){
     .logStop("Error No Overlap in Chromosomes and Feature Chromosomes!", logFile = logFile)
   }
