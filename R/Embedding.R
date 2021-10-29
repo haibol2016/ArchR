@@ -419,7 +419,7 @@ addTSNE <- function(
     colnames(dfEmbedding) <- paste0(reducedDims,"#TSNE_Dimension_",seq_len(ncol(dfEmbedding)))
     rownames(dfEmbedding) <- rownames(embeddingParams$X)
 
-  }else if(tolower(method)=="fftrtsne" | tolower(method)=="fit-tsne"){
+  }else if(tolower(method)=="fftrtsne" || tolower(method)=="fit-tsne"){
 
     .requirePackage("Seurat", source = "cran")
     
