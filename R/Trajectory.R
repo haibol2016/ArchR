@@ -745,7 +745,7 @@ plotTrajectory <- function(
   plotParams$title <- paste0(embedding, " of ", stringr::str_split(colnames(df)[1],pattern="#",simplify=TRUE)[,1])
   plotParams$baseSize <- baseSize
 
-  if(tolower(colorBy) == "coldata" | tolower(colorBy) == "cellcoldata"){
+  if(tolower(colorBy) == "coldata" || tolower(colorBy) == "cellcoldata"){
     
     plotParams$color <- as.vector(getCellColData(ArchRProj, select = name, drop = FALSE)[rownames(df), 1])
     plotParams$discrete <- .isDiscrete(plotParams$color)
@@ -843,7 +843,7 @@ plotTrajectory <- function(
     plotParams$color[idxRemove] <- NA
     plotParams$pal <- paletteContinuous(set = plotParams$continuousSet)
     
-    if(tolower(plotAs) == "hex" | tolower(plotAs) == "hexplot"){
+    if(tolower(plotAs) == "hex" || tolower(plotAs) == "hexplot"){
       plotParams$addPoints <- TRUE
       if(is.null(plotParams$bins)){
         plotParams$bins <- 150
