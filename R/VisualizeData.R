@@ -122,7 +122,7 @@ plotPDF <- function(
         if(i != length(plotList)){
           grid::grid.newpage()
         }
-      }else if(inherits(plotList[[i]], "HeatmapList") | inherits(plotList[[i]], "Heatmap") ){ 
+      }else if(inherits(plotList[[i]], "HeatmapList") || inherits(plotList[[i]], "Heatmap") ){ 
 
         if(getArchRVerbose()) message("Plotting ComplexHeatmap!")
 
@@ -300,7 +300,7 @@ plotEmbedding <- function(
 
   .logMessage(paste0("ColorBy = ", colorBy), logFile = logFile)
 
-  if(tolower(colorBy) == "coldata" | tolower(colorBy) == "cellcoldata"){
+  if(tolower(colorBy) == "coldata" || tolower(colorBy) == "cellcoldata"){
       
     colorList <- lapply(seq_along(name), function(x){
       colorParams <- list()
@@ -438,7 +438,7 @@ plotEmbedding <- function(
         }
       }
 
-      if(tolower(plotAs) == "hex" | tolower(plotAs) == "hexplot"){
+      if(tolower(plotAs) == "hex" || tolower(plotAs) == "hexplot"){
 
         plotParamsx$discrete <- NULL
         plotParamsx$continuousSet <- NULL
@@ -584,7 +584,7 @@ plotGroups <- function(
 
   plotParams <- list(...)
 
-  if(tolower(colorBy) == "coldata" | tolower(colorBy) == "cellcoldata"){
+  if(tolower(colorBy) == "coldata" || tolower(colorBy) == "cellcoldata"){
       
     colorList <- lapply(seq_along(name), function(x){
       colorParams <- list()
@@ -888,7 +888,7 @@ plotGroups <- function(
       valueOnly = TRUE
     )
     
-    sm <- sw > pw | sh > ph
+    sm <- sw > pw || sh > ph
 
   }
 
@@ -922,7 +922,7 @@ plotGroups <- function(
     wh <- 0.1
     it <- 0
 
-    while(slh > 0.2 * ph | slw > pw){
+    while(slh > 0.2 * ph || slw > pw){
 
       it <- it + 1
 
