@@ -1112,7 +1112,7 @@ addIterativeLSI <- function(
     #TF - Normalize
     mat@x <- mat@x / rep.int(colSm, Matrix::diff(mat@p))
 
-    if(LSIMethod == 1 | tolower(LSIMethod) == "tf-logidf"){
+    if(LSIMethod == 1 || tolower(LSIMethod) == "tf-logidf"){
 
       #Adapted from Casanovich et al.
 
@@ -1124,7 +1124,7 @@ addIterativeLSI <- function(
       .logDiffTime("Computing TF-IDF Matrix", tstart, addHeader = FALSE, verbose = verbose, logFile = logFile)
       mat <- as(Matrix::Diagonal(x=as.vector(idf)), "sparseMatrix") %*% mat
 
-    }else if(LSIMethod == 2 | tolower(LSIMethod) == "log(tf-idf)"){
+    }else if(LSIMethod == 2 || tolower(LSIMethod) == "log(tf-idf)"){
 
       #Adapted from Stuart et al.
 
@@ -1139,7 +1139,7 @@ addIterativeLSI <- function(
       #Log transform TF-IDF
       mat@x <- log(mat@x * scaleTo + 1)  
 
-    }else if(LSIMethod == 3 | tolower(LSIMethod) == "logtf-logidf"){
+    }else if(LSIMethod == 3 || tolower(LSIMethod) == "logtf-logidf"){
 
       #LogTF
       mat@x <- log(mat@x + 1)
@@ -1273,7 +1273,7 @@ addIterativeLSI <- function(
     }
     mat@x <- mat@x / rep.int(colSm, Matrix::diff(mat@p))
 
-    if(LSI$LSIMethod == 1 | tolower(LSI$LSIMethod) == "tf-logidf"){
+    if(LSI$LSIMethod == 1 || tolower(LSI$LSIMethod) == "tf-logidf"){
 
       #Adapted from Casanovich et al.
 
@@ -1285,7 +1285,7 @@ addIterativeLSI <- function(
       .logDiffTime("Computing TF-IDF Matrix", tstart, addHeader = FALSE, verbose = verbose, logFile = logFile)
       mat <- as(Matrix::Diagonal(x=as.vector(idf)), "sparseMatrix") %*% mat
 
-    }else if(LSI$LSIMethod == 2 | tolower(LSI$LSIMethod) == "log(tf-idf)"){
+    }else if(LSI$LSIMethod == 2 || tolower(LSI$LSIMethod) == "log(tf-idf)"){
 
       #Adapted from Stuart et al.
 
@@ -1300,7 +1300,7 @@ addIterativeLSI <- function(
       #Log transform TF-IDF
       mat@x <- log(mat@x * LSI$scaleTo + 1)  
 
-    }else if(LSI$LSIMethod == 3 | tolower(LSI$LSIMethod) == "logtf-logidf"){
+    }else if(LSI$LSIMethod == 3 || tolower(LSI$LSIMethod) == "logtf-logidf"){
 
       #LogTF
       mat@x <- log(mat@x + 1)
