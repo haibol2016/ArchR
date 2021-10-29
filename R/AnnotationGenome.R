@@ -157,7 +157,7 @@ createGeneAnnotation <- function(
 
     ###########################
     message("Getting Exons..")
-    exons <- unlist(GenomicFeatures::exonsBy(TxDb, by = "tx", use.names = TRUE))
+    exons <- unlist(GenomicFeatures::exonsBy(TxDb, by = "tx", use.names = FALSE))
     exons$tx_id <- names(exons)
     mcols(exons)$gene_id <- suppressMessages(AnnotationDbi::select(TxDb, keys = paste0(mcols(exons)$tx_id), column = "GENEID", keytype = "TXID")[, "GENEID"])
     exons <- exons[!is.na(mcols(exons)$gene_id), ]
