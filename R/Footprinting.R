@@ -236,7 +236,7 @@ getFootprints <- function(
           .logDiffTime(sprintf("%s %s Percent Completed", prefix, round(100 * x / length(featureList)),1), tstart, verbose=verbose, logFile = logFile)
         }
       }else{
-          if(x == 1 | x == length(featureList)){
+          if(x == 1 || x == length(featureList)){
             .logDiffTime(sprintf("%s %s Percent Completed", prefix, round(100 * x / length(featureList)),1), tstart, verbose=verbose, logFile = logFile)
           }
       }
