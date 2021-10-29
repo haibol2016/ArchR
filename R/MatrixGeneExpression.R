@@ -257,7 +257,7 @@ addGeneExpressionMatrix <- function(
       )
       gc()
 
-      if(z %% 3 == 0 | z == length(uniqueChr)){
+      if(z %% 3 == 0 || z == length(uniqueChr)){
         gc()
       }
 
@@ -270,10 +270,7 @@ addGeneExpressionMatrix <- function(
       )
 
       .logError(e, fn = ".addGeneExpressionMat AddToArrow", info = sampleName, errorList = errorList, logFile = logFile)
-
     })
-
-
   }
 
   #Add Info To Arrow Files
