@@ -395,7 +395,7 @@ addGeneScoreMatrix <- function(
       #Remove Blacklisted Tiles!
       if(!is.null(blacklist)){
         if(length(blacklist) > 0){
-           if (chrz %in% names(blacklist){
+           if (chrz %in% names(blacklist)){
              blacklistz <- blacklist[[chrz]]
              if(!is.null(blacklistz) && length(blacklistz) > 0){
                tilesBlacklist <- 1 * (!overlapsAny(uniqueTiles, ranges(blacklistz)))
