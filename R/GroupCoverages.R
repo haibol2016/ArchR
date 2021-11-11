@@ -749,10 +749,13 @@ addGroupCoverages <- function(
   for(x in seq_along(allChr)){
     o <- tryCatch({
       iS <- .getCoverageInsertionSites(coverageFile = coverageFile, chr = allChr[x])
-      if(x == 1) .logThis(iS, "InsertionSites", logFile = logFile)
-      iS <- data.table(seqnames = allChr[x], start = iS - 1L, end = iS)
-      if(x == 1) .logThis(iS, "InsertionSites-DT", logFile = logFile)
-      data.table::fwrite(iS, out, sep = "\t", col.names = FALSE, append = TRUE)
+      if (length(iS)> 0)
+      {
+        if(x == 1) .logThis(iS, "InsertionSites", logFile = logFile)
+        iS <- data.table(seqnames = allChr[x], start = iS - 1L, end = iS)
+        if(x == 1) .logThis(iS, "InsertionSites-DT", logFile = logFile)
+        data.table::fwrite(iS, out, sep = "\t", col.names = FALSE, append = TRUE
+      }
     }, error = function(e){
       errorList <- list(
         x = x, 
