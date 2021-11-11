@@ -754,7 +754,7 @@ addGroupCoverages <- function(
         if(x == 1) .logThis(iS, "InsertionSites", logFile = logFile)
         iS <- data.table(seqnames = allChr[x], start = iS - 1L, end = iS)
         if(x == 1) .logThis(iS, "InsertionSites-DT", logFile = logFile)
-        data.table::fwrite(iS, out, sep = "\t", col.names = FALSE, append = TRUE
+        data.table::fwrite(iS, out, sep = "\t", col.names = FALSE, append = TRUE)
       }
     }, error = function(e){
       errorList <- list(
