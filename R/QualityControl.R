@@ -113,35 +113,28 @@ plotTSSEnrichment <- function(
   if(threads > 1){
     h5enableFileLocking()
   }
-  
-  if(returnDF){
+  plotDF <- data.frame(x=dfTSS$x,v=dfTSS$smoothValue,group=dfTSS$group)
+  plotDF <- plotDF[sort(unique(seq(1,nrow(plotDF),11), nrow(plotDF))), , drop = FALSE]
     
-    return(dfTSS)
-
-  }else{
-
-    plotDF <- data.frame(x=dfTSS$x,v=dfTSS$smoothValue,group=dfTSS$group)
-    plotDF <- plotDF[sort(unique(c(1,seq(1,nrow(plotDF),11),nrow(plotDF)))), , drop = FALSE]
-    
-    if(is.null(pal)){
+  if(is.null(pal)){
       pal <- paletteDiscrete(values=unique(plotDF$group))
-    }
-
-    p <- ggplot(plotDF, aes(x,v,color=group)) +
-      geom_line(size = 1) +
-      theme_ArchR() +
-      xlab("Distance From Center (bp)") +
-      ylab("Normalized Insertion Profile") +
-      scale_color_manual(values=pal) +
-      scale_y_continuous(limits = c(0, max(plotDF$v)*1.05), expand = c(0,0)) +
-      scale_x_continuous(limits = c(min(plotDF$x), max(plotDF$x)), expand = c(0,0))
-
-    p
-
   }
-
+    
+  p <- ggplot(plotDF, aes(x,v,color=group)) +
+        geom_line(size = 1) +
+        theme_ArchR() +
+        xlab("Distance From Center (bp)") +
+        ylab("Normalized Insertion Profile") +
+        scale_color_manual(values=pal) +
+        scale_y_continuous(limits = c(0, max(plotDF$v)*1.05), 
+                           expand = c(0,0)) +
+        scale_x_continuous(limits = c(min(plotDF$x),
+                                      max(plotDF$x)), expand = c(0,0))
+    
+  print(p)
+    
+  if(returnDF){return(plotDF)}  
 }
-
 
 #' Plot the fragment size distribution for each sample
 #' 
