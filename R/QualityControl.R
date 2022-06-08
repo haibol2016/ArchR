@@ -1,5 +1,5 @@
 #' Plot a TSS Enrichment Plot for Each Sample
-#' 
+#'
 #' This function will plot a TSS enrichment plot for each sample. Cells in `ArchRProject` are the only ones
 #' used when making this plot.
 #'
@@ -9,7 +9,7 @@
 #' @param TSS A `GRanges` object containing the locations of stranded TSS regions. The default behavior is to try to retrieve
 #' this information from the `geneAnnotation` stored in the `ArchRProject`.
 #' @param flank An integer that specifies how far in bp (+/-) to extend the TSS for plotting.
-#' @param norm An integer that specifies the number of base pairs from the ends of the flanks to be used for normalization. 
+#' @param norm An integer that specifies the number of base pairs from the ends of the flanks to be used for normalization.
 #' For example if `flank=2000` and `norm=100`, the TSS insertions will be normalized by +/- 1900-2000 bp from the TSS.
 #' @param smooth An integer that indicates the smoothing window (in basepairs) to be applied to the TSS plot.
 #' @param pal A color palette representing the groups from groupBy in TSS plot.
@@ -23,8 +23,8 @@ plotTSSEnrichment <- function(
   groupBy = "Sample",
   chromSizes = getChromSizes(ArchRProj),
   TSS = getTSS(ArchRProj),
-  flank = 2000, 
-  norm = 100, 
+  flank = 2000,
+  norm = 100,
   smooth = 11,
   pal = NULL,
   returnDF = FALSE,
@@ -72,8 +72,8 @@ plotTSSEnrichment <- function(
         subsetBy = chromSizes[paste0(seqnames(chromSizes)) %in% chr[i]],
         cellNames = cellx,
         logFile = logFile
-      )), use.names=FALSE) %>% 
-        sort %>% 
+      )), use.names=FALSE) %>%
+        sort %>%
           {coverage(IRanges(c(start(.), end(.)), width = 1))}
 
       .logThis(covi, paste0(uniqGroups[x], " : Cov : ", chr[i]), logFile = logFile)
@@ -92,8 +92,8 @@ plotTSSEnrichment <- function(
 
     df <- DataFrame(
       group = uniqGroups[x],
-      x = seq_along(sumTSS) - flank - 1, 
-      value = sumTSS, 
+      x = seq_along(sumTSS) - flank - 1,
+      value = sumTSS,
       normValue = sumTSS / normBy,
       smoothValue = .centerRollMean(sumTSS/normBy, 11)
     )
@@ -115,29 +115,28 @@ plotTSSEnrichment <- function(
   }
   plotDF <- data.frame(x=dfTSS$x,v=dfTSS$smoothValue,group=dfTSS$group)
   plotDF <- plotDF[sort(unique(seq(1,nrow(plotDF),11), nrow(plotDF))), , drop = FALSE]
-    
+
   if(is.null(pal)){
       pal <- paletteDiscrete(values=unique(plotDF$group))
   }
-    
+
   p <- ggplot(plotDF, aes(x,v,color=group)) +
         geom_line(size = 1) +
         theme_ArchR() +
         xlab("Distance From Center (bp)") +
         ylab("Normalized Insertion Profile") +
         scale_color_manual(values=pal) +
-        scale_y_continuous(limits = c(0, max(plotDF$v)*1.05), 
+        scale_y_continuous(limits = c(0, max(plotDF$v)*1.05),
                            expand = c(0,0)) +
         scale_x_continuous(limits = c(min(plotDF$x),
                                       max(plotDF$x)), expand = c(0,0))
-    
-  print(p)
-    
-  if(returnDF){return(plotDF)}  
+  p
+
+  if(returnDF){return(plotDF)}
 }
 
 #' Plot the fragment size distribution for each sample
-#' 
+#'
 #' This function will plot a fragment size distribution for each sample. Only cells in the `ArchRProject` are used when making this plot.
 #'
 #' @param ArchRProj An `ArchRProject` object.
@@ -206,7 +205,7 @@ plotFragmentSizes <- function(
 
     df <- DataFrame(
       group = uniqGroups[x],
-      fragmentSize = seq_along(fsi), 
+      fragmentSize = seq_along(fsi),
       fragmentPercent = round(100*fsi/sum(fsi),4)
     )
 
@@ -227,18 +226,18 @@ plotFragmentSizes <- function(
   }
 
   if(returnDF){
-    
+
     return(dfFS)
 
   }else{
 
     plotDF <- data.frame(dfFS)
-    
+
     if(is.null(pal)){
       pal <- paletteDiscrete(values=unique(plotDF$group))
     }
 
-    p <- ggplot(plotDF, aes(fragmentSize, fragmentPercent,color=group)) + 
+    p <- ggplot(plotDF, aes(fragmentSize, fragmentPercent,color=group)) +
       geom_line(size = 1) +
       theme_ArchR() +
       xlab("ATAC-seq Fragment Size (bp)") +
@@ -252,6 +251,3 @@ plotFragmentSizes <- function(
   }
 
 }
-
-
-
