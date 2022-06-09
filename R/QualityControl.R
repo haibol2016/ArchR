@@ -131,9 +131,11 @@ plotTSSEnrichment <- function(
         scale_x_continuous(limits = c(min(plotDF$x),
                                       max(plotDF$x)), expand = c(0,0))
     
-  print(p)
+  p
     
-  if(returnDF){return(plotDF)}  
+  if(returnDF){
+    return(plotDF)
+  }  
 }
 
 #' Plot the fragment size distribution for each sample
